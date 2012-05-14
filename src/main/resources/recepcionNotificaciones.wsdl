@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.synergyj.com/concepto/webservices/recepcionNotificaciones/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	name="recepcionNotificaciones" targetNamespace="http://www.synergyj.com/concepto/webservices/recepcionNotificaciones/">
+	<wsdl:types>
+		<xsd:schema
+			targetNamespace="http://www.synergyj.com/concepto/webservices/recepcionNotificaciones/"
+			elementFormDefault="qualified">
+
+			<xsd:element name="respuestaXMLResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="respuesta" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="notificacionXMLRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="idModulo" type="xsd:string" />
+						<xsd:element name="idTipoNotificacion" type="xsd:int" />
+						<xsd:element name="notificacion" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="recibeNotificacionesRequest">
+		<wsdl:part element="tns:notificacionXMLRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="recibeNotificacionesResponse">
+		<wsdl:part element="tns:respuestaXMLResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:portType name="recepcionNotificaciones">
+		<wsdl:operation name="recibeNotificaciones">
+			<wsdl:input message="tns:recibeNotificacionesRequest" />
+			<wsdl:output message="tns:recibeNotificacionesResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="recepcionNotificacionesSOAP" type="tns:recepcionNotificaciones">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="recibeNotificaciones">
+			<soap:operation
+				soapAction="http://www.synergyj.com/concepto/webservices/recepcionNotificaciones/recibeNotificaciones" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="recepcionNotificaciones">
+		<wsdl:port binding="tns:recepcionNotificacionesSOAP" name="recepcionNotificacionesSOAP">
+			<soap:address
+				location="http://localhost:8081/spring3-concepto-ws/services/recepcionNotificaciones" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
